@@ -53,7 +53,7 @@
                                         <td class="text-center">{{ $item-> telepon}}</td>
                                         <td class="text-center">{{ $item-> gender == 1?"Laki-laki":"Perempuan"}}</td>
                                         <td class="text-center">{{"Rp. ". number_format($item-> gaji_pokok, 0, '.', '.')}}</td>
-                                        <td class="text-center">{{ $item-> status == 1?"Aktif":""}}</td>
+                                        <td class="text-center">{{ $item-> status == 1?"Aktif":"Tidak Aktif"}}</td>
 
                                     </tr>
                                     @empty
