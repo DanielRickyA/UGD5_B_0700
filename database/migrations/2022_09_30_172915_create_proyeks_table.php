@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('proyeks', function (Blueprint $table) {
             $table->id();
             $table->string('nama_proyek');
-            $table->unsignedBigInteger('id_departemen');
-            $table->foreign('id_departemen')->references('id')->on('departemens');
+            $table->unsignedBigInteger('departemen_id');
+            $table->foreign('departemen_id')->references('id')->on('departemens');
             $table->date('waktu_mulai');
             $table->date('waktu_selesai');
             $table->integer('nilai_proyek');

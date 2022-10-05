@@ -16,7 +16,7 @@ class proyek extends Model
      */
     protected $fillable = [
         'nama_proyek',
-        'id_departemen',
+        'departemen+_id',
         'waktu_mulai',
         'waktu_selesai',
         'nilai_proyek',
@@ -25,6 +25,6 @@ class proyek extends Model
 
     public function showDepartemen()
     {
-        return $this->belongsTo(Departemen::class, 'id_departemen', 'id');
+        return $this->belongsTo(Departemen::class, 'departemen_id', 'id');
     }
 }
