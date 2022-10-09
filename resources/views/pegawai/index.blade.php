@@ -1,5 +1,15 @@
 @extends('dashboard')
+
 @section('content')
+@if(Session::has('success'))
+<script>
+    toastr.options = {
+        "closeButton": true,
+        "progressBar": true
+    }
+    toastr.success("{{ session('success') }}");
+</script>
+@endif
 <div class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
@@ -30,6 +40,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive p-0">
+                            <a href="{{ route('pegawai.create') }}" class="btn btn-md btn-success mb-3">TAMBAH Pegawai</a>
                             <table class="table table-hover textnowrap">
                                 <thead>
                                     <tr>
@@ -41,6 +52,7 @@
                                         <th class="text-center">Gender</th>
                                         <th class="text-center">Gaji Pokok</th>
                                         <th class="text-center">Status</th>
+                                        <th class="text-center">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -54,7 +66,14 @@
                                         <td class="text-center">{{ $item-> gender == 1?"Laki-laki":"Perempuan"}}</td>
                                         <td class="text-center">{{"Rp. ". number_format($item-> gaji_pokok, 0, '.', '.')}}</td>
                                         <td class="text-center">{{ $item-> status == 1?"Aktif":"Tidak Aktif"}}</td>
-
+                                        <td class="text-center">
+                                            <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('pegawai.destroy', $item->id) }}" method="POST">
+                                                <a href="{{route('pegawai.edit', $item->id) }}" class="btn btn-sm btn-primary">EDIT</a>
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
+                                            </form>
+                                        </td>
                                     </tr>
                                     @empty
                                     <div class="alert alert-danger">

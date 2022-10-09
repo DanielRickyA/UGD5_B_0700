@@ -1,5 +1,15 @@
 @extends('dashboard')
+
 @section('content')
+<script>
+    @if(Session::has('success'))
+    toastr.options = {
+        "closeButton": true,
+        "progressBar": true
+    }
+    toastr.success("{{ session('success') }}");
+    @endif
+</script>
 <div class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
@@ -30,6 +40,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive p-0">
+                            <a href="{{ route('departemen.create') }}" class="btn btn-md btn-success mb-3">TAMBAH DEPARTEMEN</a>
                             <table class="table table-hover textnowrap">
                                 <thead>
                                     <tr>
@@ -39,6 +50,7 @@
                                             Manger</th>
                                         <th class="text-center">Jumlah
                                             Pegawai</th>
+                                        <th class="textcenter">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -47,7 +59,14 @@
                                         <td class="text-center">{{ $item->nama_departemen }}</td>
                                         <td class="text-center">{{ $item->nama_manager }}</td>
                                         <td class="text-center">{{ $item->jumlah_pegawai }}</td>
-
+                                        <td>
+                                            <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('departemen.destroy', $item->id) }}" method="POST">
+                                                <a href="{{route('departemen.edit', $item->id) }}" class="btn btn-sm btn-primary">EDIT</a>
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
+                                            </form>
+                                        </td>
                                     </tr>
                                     @empty
                                     <div class="alert alert-danger">

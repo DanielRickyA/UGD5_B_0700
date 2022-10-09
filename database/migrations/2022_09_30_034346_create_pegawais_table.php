@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('nomor_induk_pegawai');
             $table->string('nama_pegawai');
             $table->unsignedBigInteger('id_departemen');
-            $table->foreign('id_departemen')->references('id')->on('departemens');
+            $table->foreign('id_departemen')->references('id')->on('departemens')->onDelete('cascade');;
             $table->string('email');
             $table->integer('telepon');
             $table->boolean('gender');

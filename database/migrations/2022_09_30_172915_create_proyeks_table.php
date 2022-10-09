@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama_proyek');
             $table->unsignedBigInteger('departemen_id');
-            $table->foreign('departemen_id')->references('id')->on('departemens');
+            $table->foreign('departemen_id')->references('id')->on('departemens')->onDelete('cascade');;
             $table->date('waktu_mulai');
             $table->date('waktu_selesai');
             $table->integer('nilai_proyek');
