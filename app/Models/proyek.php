@@ -16,7 +16,7 @@ class proyek extends Model
      */
     protected $fillable = [
         'nama_proyek',
-        'departemen+_id',
+        'departemen_id',
         'waktu_mulai',
         'waktu_selesai',
         'nilai_proyek',

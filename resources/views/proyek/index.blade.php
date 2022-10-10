@@ -1,5 +1,14 @@
 @extends('dashboard')
 @section('content')
+@if(Session::has('success'))
+<script>
+    toastr.options = {
+        "closeButton": true,
+        "progressBar": true
+    }
+    toastr.success("{{ session('success') }}");
+</script>
+@endif
 <div class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
@@ -10,7 +19,7 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item">
-                        <a href="{{ url('departemen')}}">Pegawai</a>
+                        <a href="{{ url('proyek')}}">Proyek</a>
                     </li>
                     <li class="breadcrumb-item active">Index</li>
                 </ol>
@@ -30,6 +39,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive p-0">
+                            <a href="{{ route('proyek.create') }}" class="btn btn-md btn-success mb-3">TAMBAH PROYEK</a>
                             <table class="table table-hover textnowrap">
                                 <thead>
                                     <tr>
@@ -39,6 +49,7 @@
                                         <th class="text-center">Waktu Selesai</th>
                                         <th class="text-center">Nilai Proyek</th>
                                         <th class="text-center">Status</th>
+                                        <th class="text-center">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -51,7 +62,14 @@
                                         <td class="text-center">{{ $ubahTanggal($item-> waktu_selesai)}}</td>
                                         <td class="text-center">{{"Rp. ". number_format($item-> nilai_proyek, 0, '.', '.')}}</td>
                                         <td class="text-center">{{ $item-> status == 1?"Berjalan":"Selesai"}}</td>
-
+                                        <td class="text-center">
+                                            <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('proyek.destroy', $item->id) }}" method="POST">
+                                                <a href="{{route('proyek.edit', $item->id) }}" class="btn btn-sm btn-primary">EDIT</a>
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
+                                            </form>
+                                        </td>
                                     </tr>
                                     @empty
                                     <div class="alert alert-danger">

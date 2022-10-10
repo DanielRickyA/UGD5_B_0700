@@ -1,15 +1,15 @@
 @extends('dashboard')
 
 @section('content')
+@if(Session::has('success'))
 <script>
-    @if(Session::has('success'))
     toastr.options = {
         "closeButton": true,
         "progressBar": true
     }
     toastr.success("{{ session('success') }}");
-    @endif
 </script>
+@endif
 <div class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
